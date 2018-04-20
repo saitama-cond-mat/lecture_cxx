@@ -129,9 +129,9 @@ int main() {
         std::cout << "returned value = " << r << std::endl;
     }
 
-    test_const();
+    //test_const();
 
-    test_const2();
+    //test_const2();
 
 
     return 0;
