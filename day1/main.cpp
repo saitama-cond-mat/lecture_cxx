@@ -17,7 +17,7 @@ void test_references() {
     std::cout << "j = " << j << std::endl;
 
 
-    // Pointer (Do not use pointers in your practical code unless if you know what you are actually doing...)
+    // Pointer (Do not use pointers in your practical code unless you know what you are actually doing...)
     int* p_i = &i;
     std::cout << "Make almost no sense!: the value of pointer = address in memory space = " << p_i << std::endl;
     std::cout << "One can see that the both point to the data at the same address " << &i << std::endl;
@@ -99,6 +99,17 @@ int test_functions(int n, int& m) {
     return m;
 }
 
+void test_const(const int& read_only_value) {
+    std::cout << "read only value " << read_only_value;
+}
+
+void test_const2(const std::vector<double>& array) {
+    // forbidden
+    //array.resize(10);
+    //array[0] = 1;
+}
+
+
 int main() {
 
     // Reference and pointer
@@ -117,6 +128,11 @@ int main() {
         std::cout << "in main:  m = " << m << std::endl;
         std::cout << "returned value = " << r << std::endl;
     }
+
+    test_const();
+
+    test_const2();
+
 
     return 0;
 }
