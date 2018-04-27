@@ -46,8 +46,17 @@ void test_array() {
     // since C++11 (may be statically allocated in the stack practically)
     std::array<double,4> a {10, 20, 30, 40};
 
+    {
+        int k = 0;
+        {
+            int k = 100;
+            // k
+        }
+    }
+
     for (int i=0; i < a.size(); ++i) {
         // The index runs from 0 (not from 1).
+        int k = 0;
         std::cout << " i = " << i << " " << a[i] << std::endl;
     }
 
@@ -58,7 +67,7 @@ void test_array() {
 
     // Since C++11 (range-based for statement)
     for (auto& v : a) {
-        std::cout << v << std::endl;
+        std::cout << "v = " << v << std::endl;
     }
 
     // This will crash your program (no safeguards)
