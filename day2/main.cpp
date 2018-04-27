@@ -4,6 +4,7 @@
 #include <numeric>
 #include <complex>
 
+template<typename T>
 class my_complex {
 public:
     // Constructor
@@ -11,24 +12,23 @@ public:
         std::cout << "Copy constructor " << std::endl;
         _re = other.real();
         _im = other.imag();
-
     }
 
-    my_complex(double re, double im) : _re(re), _im(im) {
+    my_complex(T re, T im) : _re(re), _im(im) {
         std::cout << " _re, _im = " << _re << " " << _im << std::endl;
     }
 
-    double real() const {
+    T real() const {
         return _re;
     }
 
-    double imag() const {
+    T imag() const {
         return _im;
     }
 
     my_complex operator*(const my_complex& another_value) const {
-        double re = this->_re * another_value.real() - this->_im * another_value.imag();
-        double im = this->_re * another_value.imag() + this->_im * another_value.real();
+        T re = this->_re * another_value.real() - this->_im * another_value.imag();
+        T im = this->_re * another_value.imag() + this->_im * another_value.real();
 
         return my_complex(re, im);
     }
@@ -43,13 +43,20 @@ public:
     }
 
 private:
-    double _re, _im;
+    T _re, _im;
 };
 
-std::ostream& operator<<(std::ostream& stream, const my_complex& value) {
+template<typename T>
+std::ostream& operator<<(std::ostream& stream, const my_complex<T>& value) {
     stream << "( " << value.real() << " , " << value.imag() << " )";
     return stream;
 }
+
+template<typename T, typename T2>
+T my_function(const T& a, const T2& b) {
+    return a * b;
+}
+
 
 int main() {
     // Complex numbers
@@ -64,18 +71,20 @@ int main() {
     std::cout << "Re " << z3.real() << std::endl;
     std::cout << "Im " << z3.imag() << std::endl;
 
-    my_complex my_z(0.0, 1.0);
-    my_complex my_z2(1.0, 1.0);
+    my_complex<double> my_z(0.0, 1.0);
+    my_complex<double> my_z2(1.0, 1.0);
     std::cout << " my_z " << my_z.real() << " " << my_z.imag() << std::endl;
 
-    my_complex my_z3 = my_z * my_z2;
+    my_complex<double> my_z3 = my_z * my_z2;
 
     std::cout << " my_z3 " << my_z3.real() << " " << my_z3.imag() << std::endl;
 
     (std::cout << my_z3) << std::endl;
 
     //my_complex empty(my_z3);
-    my_complex empty2 = my_z3;
+    my_complex<double> empty2 = my_z3;
+
+    std::cout << "my_func " << my_function<double,int>(1.0, 2) << std::endl;
 
     return 0;
 }
