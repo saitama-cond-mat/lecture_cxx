@@ -7,6 +7,41 @@
 #include "./Eigen/LU"
 #include "./Eigen/Eigenvalues"
 
+#include <utility>
+
+double
+legg_next(int l, const double &x, const double &Pl, const double &Plm1) {
+    return ((2 * l + 1) * x * Pl - l * Plm1) / (l + 1);
+}
+
+double
+legg(int l, double x) {
+    double p0(1);
+    double p1(x);
+
+    if (l == 0) {
+        return p0;
+    }
+
+    int n = 1;
+
+    while (n < l) {
+        std::swap(p0, p1);
+        p1 = legg_next(n, x, p0, p1);
+        ++n;
+    }
+    return p1;
+}
+
+double
+d_legg(int l, double x) {
+    if (l == 0) {
+        return 0.0;
+    }
+    return l * (x * legg(l,x) - legg(l-1,x))/(x*x-1);
+
+}
+
 void matrix_power() {
     int P = 4;
     int N = 2;
@@ -30,7 +65,15 @@ void matrix_power() {
 
 int main() {
 
-    matrix_power();
+    //matrix_power();
+    double x = 0.5;
+    std::cout << legg(0, x) << " " << 1 << std::endl;
+    std::cout << legg(1, x) << " " << x << std::endl;
+    std::cout << legg(2, x) << " " << 0.5 * (3*x*x -1) << std::endl;
+
+    std::cout << d_legg(0, x) << " " << 0 << std::endl;
+    std::cout << d_legg(1, x) << " " << 1 << std::endl;
+    std::cout << d_legg(2, x) << " " << 3 * x << std::endl;
 
     //Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic> M;
     /*
