@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+inline int my_pow(int a, int n) {
+    return 0;
+}
+
 template<typename T>
 class my_complex {
 public:

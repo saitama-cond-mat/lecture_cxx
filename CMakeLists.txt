@@ -7,3 +7,4 @@ add_executable(lecture_cxx main.cpp)
 
 add_subdirectory(day1)
 add_subdirectory(day2)
+add_subdirectory(day3)
